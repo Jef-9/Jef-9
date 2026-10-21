@@ -86,5 +86,5 @@ Configuration Firebase :
 
 ## Auteur
 
-**Waldo YEMADJE** : étudiant en Master 1 Génie Logiciel, IFRI-UAC (Bénin).
-[LinkedIn] · [ton-email@exemple.com]
+**Waldo YEMADJE** : étudiant en Master  Génie Logiciel, IFRI-UAC (Bénin).
+ · corajef84@gmail.com
