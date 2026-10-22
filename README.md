@@ -1,90 +1,39 @@
-# Zémidjan 🏙️
+# Salut, je suis Waldo 👋
 
-> L'annuaire mobile des services de Cotonou : trouver une entreprise, un service ou un artisan près de chez soi, en quelques appuis.
+**Étudiant en Master  Génie Logiciel à l'IFRI (Université d'Abomey-Calavi), Bénin.**
+Je conçois des applications mobiles et des API : de l'idée au produit utilisable.
 
-<!-- Ajoute ici une bannière ou un GIF de démonstration : docs/screenshots/demo.gif -->
+📍 Cotonou / Abomey-Calavi, Bénin
+📫 corajef84@gmail.com  · 💼 https://www.linkedin.com/in/coras-waldo-5a27a7386?utm_source=share_via&utm_content=profile&utm_medium=member_android
 
-## Pourquoi ce projet ?
 
-À Cotonou, les services locaux se trouvent surtout par le bouche-à-oreille, et les petits prestataires manquent de visibilité. Zémidjan regroupe plusieurs domaines de besoin dans une seule application, avec un espace d'administration pour garder l'annuaire à jour.
+---
 
-## Captures d'écran
+## 🛠️ Compétences
 
-| Accueil | Détail d'une fiche | Profil | Administration |
-|---|---|---|---|
-| ![Accueil](docs/screenshots/accueil.png) | ![Détail](docs/screenshots/detail.png) | ![Profil](docs/screenshots/profil.png) | ![Admin](docs/screenshots/admin.png) |
-
-## Fonctionnalités
-
-**Côté utilisateur**
-- Inscription et connexion par e-mail, ou avec Google ; réinitialisation du mot de passe
-- Accueil avec carrousel « Nouveautés » à défilement automatique et carrousel de catégories
-- Recherche par nom et filtre par catégorie
-- Fiche détaillée avec **galerie de plusieurs photos** (zoom plein écran) et bouton d'appel
-- Profil : changement de photo, de nom et de mot de passe
-- Tiroir de paramètres : thème clair / sombre / automatique, notifications, à propos
-- Alerte dans l'app quand une nouvelle fiche est ajoutée
-- Animations (apparition en cascade, transitions de page) et navigation par barre inférieure
-
-**Côté administrateur**
-- Ajout, modification et suppression des fiches et des catégories
-- Ajout de **plusieurs photos d'un coup** (jusqu'à 8 par fiche) et choix de la photo de couverture
-
-## Technologies
-
-| Couche | Choix |
+| Domaine | Technologies |
 |---|---|
-| Application | Flutter (Dart), Material 3 |
-| Authentification | Firebase Authentication (e-mail/mot de passe, Google Sign-In) |
-| Données | Firebase Realtime Database (mise à jour en temps réel) |
-| Sécurité | Règles Firebase : lecture réservée aux utilisateurs connectés, écriture réservée aux administrateurs |
+| **Mobile** | Flutter, Dart |
+| **Backend** | FastAPI (Python), Node.js (GraphQL, Prisma), Spring Boot |
+| **Bases de données** | PostgreSQL, MySQL, Oracle (PL/SQL, RMAN), SQLite, Firebase (Auth, Realtime Database, Firestore) |
+| **Data / IA** | K-means, DBSCAN, PCA, heuristiques d'optimisation (plus proche voisin, 2-opt) |
 
-## Architecture
+---
 
-```
-lib/
-├── main.dart            démarrage de Firebase et thème
-├── models/              Category, Place
-├── services/            DbService (base de données), AuthService (comptes)
-├── state/               AppState : profil, thème, notifications, statut admin
-├── screens/             accueil, explorer, profil, authentification, administration
-└── widgets/             composants réutilisables (carrousels, galerie, animations, tiroir)
-```
+## 🚀 Projets réalisés
 
-Les écrans passent par les services et jamais par Firebase directement : le jour où la base change, seuls les services et les modèles sont à réécrire. L'état global (`AppState`) est un `ChangeNotifier` : les écrans se reconstruisent quand le profil ou le thème change.
+| Projet | Description | Technologies |
+|---|---|---|
+| [**Zémidjan**](https://github.com/Jef-9/zemidjan) | Annuaire des services de Cotonou : fiches avec galerie photos, recherche, comptes utilisateurs, panneau d'administration | Flutter · Firebase Auth · Realtime Database |
+| **Yebu** | Application e-commerce complète avec chat en temps réel et notifications push | Flutter · Node.js · GraphQL · Prisma · PostgreSQL · WebSockets |
+| **Optimiseur de livraison** | Calcul de tournées de livraison (plus proche voisin + amélioration 2-opt) sur carte OpenStreetMap | Flutter · FastAPI · Firebase |
+| **Télémédecine** | Application de télémédecine mobile avec API | Flutter · FastAPI · MySQL |
+| **Recommandation de vidéos** | Recommandation par regroupement (clustering) avec visualisation PCA | Flutter · FastAPI · K-means · DBSCAN |
+| **Détection de fraude** | Détection d'anomalies par DBSCAN sur des transactions | Python · PostgreSQL · DBSCAN |
 
-**Choix techniques à noter**
-- Les fiches et leur galerie sont enregistrées **en une seule écriture atomique** (fiche et photos ensemble, ou rien).
-- Les listes ne chargent que la photo de couverture ; la galerie complète n'est lue que sur l'écran de détail.
-- Les préférences (thème, notifications, photo) suivent le compte d'un téléphone à l'autre.
 
-## Lancer le projet
+---
 
-Prérequis : Flutter, un projet Firebase (offre gratuite Spark suffisante), un téléphone ou émulateur Android.
+## 🎯 Je recherche
 
-```bash
-git clone https://github.com/Jef-9/zemidjan.git
-cd zemidjan
-flutter pub get
-dart pub global activate flutterfire_cli
-flutterfire configure        # génère lib/firebase_options.dart pour TON projet Firebase
-flutter run
-```
-
-Configuration Firebase :
-1. **Authentication** : activer les méthodes *Google* et *E-mail/Mot de passe*.
-2. **Realtime Database** : créer la base, puis coller le contenu de `database.rules.json` dans l'onglet *Règles*.
-3. **Android** : ajouter l'empreinte SHA-1 de la clé de debug (`cd android && ./gradlew signingReport`).
-4. **Devenir administrateur** : créer dans la base le nœud `admins/<UID de ton compte>` avec la valeur `true`.
-
-## Limites connues et pistes d'amélioration
-
-- Les photos sont stockées en base64 dans la base (150 Ko max, 8 par fiche) pour rester sur l'offre gratuite. Pour un annuaire plus grand, passer à un vrai stockage de fichiers.
-- Les notifications fonctionnent app ouverte ; les notifications push (app fermée) demanderaient Firebase Cloud Messaging.
-- La recherche par nom est faite côté application : adaptée à quelques centaines de fiches.
-- Idées : favoris, carte et itinéraire vers le prestataire, avis des utilisateurs.
-
-## Auteur
-
-**Waldo YEMADJE** : étudiant en Master  Génie Logiciel, IFRI-UAC (Bénin).
- · corajef84@gmail.com
+[Stage / alternance / premier poste en développement mobile ou full-stack : adapte cette phrase.]
